@@ -13,6 +13,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<ClienteService>();
 
+builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
+builder.Services.AddScoped<ProdutoService>();
+
+builder.Services.AddScoped<IFornecedorRepository, FornecedorRepository>();
+builder.Services.AddScoped<FornecedorService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
