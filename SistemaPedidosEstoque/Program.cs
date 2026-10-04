@@ -1,8 +1,10 @@
+using SistemaPedidosEstoque.Data;
 using SistemaPedidosEstoque.Interfaces;
 using SistemaPedidosEstoque.Repositories;
 using SistemaPedidosEstoque.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddScoped<OracleConnectionFactory>();
 
 // Add services to the container.
 
@@ -18,6 +20,9 @@ builder.Services.AddScoped<ProdutoService>();
 
 builder.Services.AddScoped<IFornecedorRepository, FornecedorRepository>();
 builder.Services.AddScoped<FornecedorService>();
+
+builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
+builder.Services.AddScoped<PedidoService>();
 
 var app = builder.Build();
 

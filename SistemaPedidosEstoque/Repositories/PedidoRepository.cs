@@ -19,20 +19,20 @@ namespace SistemaPedidosEstoque.Repositories
         {
             const string sql = @"INSERT INTO PEDIDO 
                                 (ID_PEDIDO, ID_CLIENTE, ID_PRODUTO, QUANTIDADE) 
-                                VALUES (:IdPedido, :IdCliente, :IdProduto, :Quantidade) 
+                                VALUES (TB_PEDIDO_SEQ.NEXTVAL, :IdCliente, :IdProduto, :Quantidade) 
                                 RETURNING ID_PEDIDO INTO :Id";
 
             using var connection = new OracleConnection(_connectionString);
 
             var parameters = new DynamicParameters();
 
-            parameters.Add("PEDIDO", pedido.IdPedido);
-            parameters.Add("CLIENTE", pedido.IdCliente);
-            parameters.Add("PRODUTO", pedido.IdProduto);
-            parameters.Add("QUANTIDADE", pedido.Quantidade);
+            parameters.Add("IdCliente", pedido.IdCliente);
+            parameters.Add("IdProduto", pedido.IdProduto);
+            parameters.Add("Quantidade", pedido.Quantidade);
             parameters.Add("Id", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
 
             await connection.ExecuteAsync(sql, parameters);
+
             return parameters.Get<int>("Id");
         }
 
